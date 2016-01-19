@@ -1,0 +1,149 @@
+
+/*-------------- анимировать переходы----------- */
+@keyframes fadeIn {
+	from { opacity: 0; transform: scale(0.7); }
+}
+
+  
+[ui-view].ng-enter {
+	animation-duration: 0.7s;
+    animation-fill-mode: both;
+    animation-name: fadeIn;
+	-moz-animation-duration: 0.7s;
+	-moz-animation-name: fadeIn;
+	-moz-animation-fill-mode: both;
+	-webkit-animation-duration: 0.7s;
+	-webkit-animation-fill-mode: both;
+	-webkit-animation-name: fadeIn;
+}
+  
+ /*-------------- основной ----------- */
+.blog-footer {
+	padding: 40px 0;
+	color: #999;
+	text-align: center;
+	background-color: #f9f9f9;
+	border-top: 1px solid #e5e5e5;
+}
+/*----------- оформление навиг меню ----------- */
+.navbar {
+	border: 0;
+	padding: 0;
+    background-color: #E7E7E7;
+  	margin-bottom: 0px;
+}
+
+.navbar .navbar-nav > li > a {
+	font-size: 16px;
+	color: #999;
+	padding: 15px 5px;
+}
+
+.navbar .navbar-nav > li:hover,
+.navbar .navbar-nav > li > a:hover {
+	background-color: #52b6ec;
+	color: #fff;
+	transition: 0.7s;
+}
+
+.navbar .navbar-nav > li > a:focus {
+	background-color: #52b6ec;
+}
+  
+.navbar-header .logo {
+	color: #80c9f1;
+	text-shadow: 2px 2px 5px white,
+				2px -2px 5px white;
+}
+
+
+
+/*--------------оформление грида фоток----------- */
+
+.album .thumbnail {
+    cursor:pointer;
+	position: relative;
+	margin:0;
+	padding:0;
+	margin-top: 10px;
+}
+
+.album .caption {
+	background-color:pink;
+	
+}
+
+.album .caption h4 {
+	font-size: 10px;
+	text-align: center;
+	margin:0;
+}
+
+.album img {
+	height: 200px !important;
+	transition: 0.7s;
+	border-radius: 2px;
+	transform: scale(0.97); 
+}
+
+.album .hover {
+	position: absolute;
+	bottom: 35px;
+	width:100%;
+	opacity: 0;
+	transition: 0.7s;
+	margin: 4px 0;
+}
+.album .hover p {
+	margin:5px 10px;
+	line-height: 10px;
+}
+.album .thumbnail:hover .hover {
+	background-color: #52b6ec;
+	opacity: 0.8;
+}
+.album .thumbnail:hover img {
+	transform: scale(1); 
+}
+
+/*--------------оформление грида альбомов----------- */
+.albums .vcenter {
+	display: inline-block;
+    vertical-align: middle;
+    float: none;
+	padding: 0 4px!important;
+}
+
+.albums img {
+	border-radius:4px;
+	padding-bottom:4px;
+	max-height:70px;
+	border-radius:10px;
+}
+
+.albums p {
+	line-height: 5px;
+}
+
+.albums.row {
+	border-radius:5px; 
+	cursor: pointer;
+}
+
+.albums.row:nth-of-type(odd) {
+	background-color: #f9f9f9;
+}
+
+.albums.row:hover {
+	transition: all 0.7s;
+	background-color: #E7E7E7;
+}
+
+.albums .transit {
+	transition: all 0.7s;
+	opacity: 0;
+}
+
+.albums.row:hover  .transit{
+	opacity: 1;
+}

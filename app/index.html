@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>picasaViewer</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+	<link rel="stylesheet" href="styles/base.css"/>
+	
+    <!-- endbuild -->
+  </head>
+  <body ng-app="App" ng-controller = "main as main">
+    <!--[if lte IE 8]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!-- Add your site or application content here -->
+    <nav class="navbar navbar-default navbar-static-top" role="navigation">
+      
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+         <a class="navbar-brand logo" href="#"><sup>&copy </sup>picasaViewer</a>
+        </div>
+
+	<div class="navbar-collapse collapse">
+				 
+		<ul class="nav navbar-nav navbar-left">
+			<li><a ui-sref="products">Продукти</a></li>
+			<li><a href="#about">О проекте</a></li>
+        </ul>
+		
+			<div class="col-sm-4 col-md-4">
+				<form class="navbar-form">
+					<div class="input-group">
+						<input type="text" ng-model= "param" class="form-control" placeholder="Пошук" name="q">
+						<div class="input-group-btn">
+							<a class="btn btn-default" ng-href="/#search/{{param}}"><i class="glyphicon glyphicon-search"></i></a>
+						</div>
+					</div>
+				</form>
+			</div>
+		 
+        <ul class="nav navbar-nav navbar-static-top navbar-right" style="margin-right:20px;" ng-show="main.isAuthenticated()">
+		   <li class="dropdown">
+				<a class="dropdown-toggle" data-toggle="dropdown">{{main.user}}
+				<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a ng-click="main.logout()" style="cursor: pointer">Вихід</a></li> 
+				</ul>
+			</li>
+		</ul>
+		
+		<form class="navbar-form navbar-right" ng-hide="main.isAuthenticated()">
+			<button class="btn btn-default" ng-click="main.login()"><i class="glyphicon glyphicon-user"></i></button>
+		</form>
+		
+				
+    </div><!--/.navbar-collapse -->
+     
+    </nav>
+
+    <div class="container-fluid">
+		<div ui-view="centrV"></div>
+    </div>
+
+    <div class="footer">
+      <div class="container">
+        <p><span class="glyphicon glyphicon-heart"></span> from euPonomarev</p>
+      </div>
+    </div>
+
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+     <script>
+       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
+       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
+       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
+       }(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+       ga('create', 'UA-XXXXX-X');
+       ga('send', 'pageview');
+    </script>
+
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/ngstorage/ngStorage.js"></script>
+    <script src="bower_components/angular-endless-scroll/dist/angular-endless-scroll.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+        <!-- build:js({.tmp,app}) scripts/scripts.js -->
+		<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+		<script src="bower_components/ngstorage/ngStorage.min.js"></script>
+		<script src="bower_components/angular-endless-scroll/dist/angular-endless-scroll.min.js"></script>
+		<script src="scripts/app.js"></script>
+        <script src="scripts/controllers/main.js"></script>
+		<script src="scripts/service/service.js"></script>
+		<script src="scripts/controllers/albumCtrl.js"></script>
+		<script src="scripts/controllers/userAlbumsCtrl.js"></script>
+		<script src="scripts/controllers/userPhotoCtrl.js"></script>
+        <!-- endbuild -->
+</body>
+</html>

@@ -1,0 +1,25 @@
+<div class="container">
+   <h3 style="display:inline-block; color:#52b6ec;">Альбом {{album.album.title.$t}} автора {{album.album.author[0].name.$t}}</h3>
+    <div class="row list-group">
+        
+		<div class="album  col-xs-11 col-sm-4 col-lg-4" endless-scroll = "item in album.photos">
+            <div ui-sref="photo({userId: album.album.gphoto$user.$t, albumId: album.album.gphoto$id.$t, photoId: item.gphoto$id.$t })" class="thumbnail">
+                <img class="group" ng-src="{{item.media$group.media$thumbnail[2].url}}" alt="Зображення відсутнє" />
+				
+				<div class="hover">
+					<p style="color: #fff"><strong>Опис:{{item.text}}</strong></p>
+                    <p>Додана: {{ item.published.$t | date : short : timezone }} </p>
+                </div>
+									
+				<div class="caption">
+                    <h4>{{item.title.$t}}</h4>
+				</div>
+
+            </div>
+        </div>
+		
+				
+        
+    </div>
+</div>
+
