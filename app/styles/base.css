@@ -121,13 +121,15 @@
 	border-radius:10px;
 }
 
-.albums p {
-	line-height: 5px;
+.vertical-align {
+    display: flex;
+    align-items: center;
 }
 
 .albums.row {
 	border-radius:5px; 
 	cursor: pointer;
+	padding: 5px;
 }
 
 .albums.row:nth-of-type(odd) {
