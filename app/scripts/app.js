@@ -97,7 +97,7 @@
 	})
 	.config(function($urlRouterProvider, $httpProvider, $authProvider){
 		 
-		$urlRouterProvider.when('', '/albums/default').
+		$urlRouterProvider.when('', '/albums/109660663401260259529').
 			rule(function ($injector, $location) {
 				//------------ловим ответ от google---------------
 				var path = $location.path().substring(1);
@@ -124,7 +124,7 @@
                     
 					if ($localStorage.tokenInfo) {
 					
-					config.headers.Authorization = $localStorage.tokenInfo.token_type 
+						config.headers.Authorization = $localStorage.tokenInfo.token_type 
 														+ ' ' + $localStorage.tokenInfo.access_token;
 						
 					}

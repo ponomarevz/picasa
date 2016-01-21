@@ -104,7 +104,7 @@
 		
 		//------------добавить альбом-----
 		this.addAlbum = function (autorId) {
-			var resurs = server + 'user/' + autorId + '?alt=json';
+			var resurs = server + 'user/' + autorId;// + '?alt=json';
 							
 				 return $http({method: 'POST', url: resurs}).then(function(res) {
 						return res;

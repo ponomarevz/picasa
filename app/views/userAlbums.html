@@ -15,25 +15,20 @@
 																				
 			<div class="col-xs-9">	
 				<h5 class="text-primary">{{item.title.$t}}</h5>
-				<p class="small">sudfsdffffffffffffffffffffffffffffffffff ffffffffffffffff saajdasjkd askdjnaskdja
-				jsdhfdjhfffffffffffffffffffffffffffffff ahsdb ashdbas anhsdb ashdbas ajshbda ajshdba 
-				sdfsd sfsd wefe wefffffffffffffffffff swefwe erfwef wefwv wefwv
-				wefwe wgwefwe wefwev wew fff</p>
-				<span class="text-muted small">
-					<em>Cтворений:
-						<small>{{ item.published.$t | date : short : timezone}}</small>
-					</em>
-					<br>
-					<em>Оновлений:
-						<small>{{ item.updated.$t | date : short : timezone}}</small>
-					</em>
-				</span>
+				<p class="small opus">Описание Тут может быть описание изображения (фыврфыв фырвпфы фыврфы фырвфы
+				ыфвфыовф офырвфы фыворфыв фыьвофыв фывьфыив фвфыорвифы вфытв фывфоывфоывифвф вфоырвифыровиф)</p>
+				<div class="text-muted date-info">
+					<div>Cтворений: {{ item.published.$t | date : short : timezone}}</div>
+					<div>Оновлений:{{ item.updated.$t | date : short : timezone}}</div>
+				</div>
 				
 			</div>	
 			
 			
 			<div class="transit col-xs-1" style="padding:0;">
-				<a style="float:right; padding:0; margin:0"><span class="glyphicon glyphicon-chevron-right"></span></a>
+				<a style="float:right; padding:0; margin:0">
+					<span class="glyphicon glyphicon-chevron-right" style="font-size:20px"></span>
+				</a>
 			</div>							
 	
 		</div>					

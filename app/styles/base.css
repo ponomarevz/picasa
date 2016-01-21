@@ -149,3 +149,10 @@
 .albums.row:hover  .transit{
 	opacity: 1;
 }
+
+.albums .date-info {
+	font-size:10px;
+}
+.albums .opus {
+	border-bottom: solid 2px #52b6ec;
+}
