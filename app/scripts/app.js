@@ -123,9 +123,9 @@
                     config.headers = config.headers || {};
                     
 					if ($localStorage.tokenInfo) {
-					   
-					//config.headers.Authorization = $localStorage.tokenInfo.token_type 
-					//									+ ' ' + $localStorage.tokenInfo.access_token;
+					
+					config.headers.Authorization = $localStorage.tokenInfo.token_type 
+														+ ' ' + $localStorage.tokenInfo.access_token;
 						
 					}
 					

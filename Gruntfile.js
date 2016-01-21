@@ -10,7 +10,7 @@
 module.exports = function (grunt) {
 	
 	grunt.loadNpmTasks('grunt-connect-proxy');
-	grunt.loadNpmTasks('grunt-contrib-connect');
+	grunt.loadNpmTasks('grunt-https-proxy');
 
 	var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest;
 
@@ -32,6 +32,18 @@ module.exports = function (grunt) {
 
   // Define the configuration for all the tasks
   grunt.initConfig({
+	  
+	   proxy: {
+    proxy1 : {
+    	options : {
+    		port : 8050,                 // start proxy server, listening to the port 8050 
+        target : {                   // make it forward all the requests to localhost:8011 
+          host: 'localhost',
+          port: 8011
+        }
+		  }
+    }
+	   },
 
     // Project settings
     yeoman: appConfig,
