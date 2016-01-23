@@ -7,7 +7,7 @@
 //	var server = 'http://picasaweb.google.com:80/data/feed/api/';
 
 	//var server = 'http://etest.optimus-it.biz/prox.php?https://picasaweb.google.com:80/data/feed/api/';
-//	var server_api = 'https://picasaweb.google.com/data/feed/api/';
+	var server_api = 'https://picasaweb.google.com/data/feed/api/';
 	var server = 'http://etest.optimus-it.biz/prox.php?';
 
 	//------------сервис для авторизации------------
