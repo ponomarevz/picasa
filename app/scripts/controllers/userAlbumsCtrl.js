@@ -13,6 +13,13 @@ angular.module('App').
 				userAlbumsService.addAlbum(autorId);
 			}
 			
+			vm.openAutor = function(user, $event) {
+			
+				window.location = 'http://localhost:9000/#/albums/' + user;
+				$event.stopPropagation();
+				
+			}
+			
 			  // Регестрируем обработчик скрола, очень простой но рабочий пагинатор
 			  $scope.$on('endlessScroll:next', function() {
 					

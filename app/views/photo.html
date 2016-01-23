@@ -1,18 +1,31 @@
-<div class="container">
-   <h3 style="display:inline-block; color:#52b6ec;">Фото {{photo.photo.title.$t}}</h3>
-    <div class="row list-group">
-				
-				<img class="group hidden-xs hidden-sm" ng-src="{{photo.photo.media$group.media$content[0].url}}" alt="Зображення відсутнє" />
-               	<img class="group hidden-sm hidden-md hidden-lg" ng-src="{{photo.photo.media$group.media$thumbnail[1].url}}" alt="Зображення відсутнє" />
-				<img class="group hidden-xs hidden-md hidden-lg" ng-src="{{photo.photo.media$group.media$thumbnail[2].url}}" alt="Зображення відсутнє" />
+<div class="container photo">
+   
+				<div class="container">
+					<h3 style="color:#52b6ec; text-align:center;">Фото {{photo.photo.title.$t}}</h3>
+					<img class="group hidden-xs hidden-sm" ng-src="{{photo.photo.media$group.media$content[0].url}}" alt="Зображення відсутнє" />
+					<img class="group hidden-sm hidden-md hidden-lg" ng-src="{{photo.photo.media$group.media$thumbnail[1].url}}" alt="Зображення відсутнє" />
+					<img class="group hidden-xs hidden-md hidden-lg" ng-src="{{photo.photo.media$group.media$thumbnail[2].url}}" alt="Зображення відсутнє" />
+				</div>
 				<hr>
-				<div class="hover">
-					
-                    <p>Файл: {{ photo.photo.title.$t }} </p>
-					<p>Автор:{{photo.photo.media$group.media$credit[0].$t}}</p>
-					<p>Описание: {{ photo.photo.media$group.media$description.$t }} </p>
-					
-                   	        
-    </div>
+				
+				<div class="container">
+                    <div class="row">
+						<div class="col-xs-3 col-md-2 title">Файл: </div> 
+						<div class="col-xs-9 col-md-10">{{ photo.photo.title.$t }}</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-3 col-md-2 title">Автор:</div> 
+						<div class="col-xs-9 col-md-10">{{photo.photo.media$group.media$credit[0].$t}}</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-3 col-md-2 title">Описание: </div> 
+						<div class="col-xs-9 col-md-10">{{photo.photo.media$group.media$description.$t}}</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-3 col-md-2 title">Просмотрено: </div> 
+						<div class="col-xs-9 col-md-10">{{photo.photo.gphoto$viewCount.$t}}</div>
+					</div>
+				</div>	
+	
 </div>
 

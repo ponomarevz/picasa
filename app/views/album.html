@@ -7,12 +7,12 @@
                 <img class="group" ng-src="{{item.media$group.media$thumbnail[2].url}}" alt="Зображення відсутнє" />
 				
 				<div class="hover">
-					<p style="color: #fff"><strong>Опис:{{item.text}}</strong></p>
+					<div class="opus">{{item.media$group.media$description.$t}}</div>
                     <p>Додана: {{ item.published.$t | date : short : timezone }} </p>
                 </div>
 									
 				<div class="caption">
-                    <h4>{{item.title.$t}}</h4>
+                    <span>{{item.title.$t}}</span>
 				</div>
 
             </div>

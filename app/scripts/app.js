@@ -132,10 +132,15 @@
                     return config;
                 },
                 'responseError': function(res) {
+					//status: {http_code: 403}, contents: "Token invalid - Invalid token: Stateless token expired"}
+					//contents: "Token invalid - Invalid token: Stateless token expired"
+					//status: {http_code: 403}
+					//http_code: 403
 					//alert(JSON.stringify(res));
 					//------ сделал 500 для тестирования с запроса на комент без токена редирект, -------------------
 					//-------------хотя в отображении убрал возможность отпр комент-----------------------------------
-                    if(res.status === 401 || res.status === 403 || res.status === 500) {
+					// так потомучто ответ от прокси скрипта
+                    if(res.status.http_code === 401 || res.status.http_code === 403 || res.status.http_code === 500) {
                         $location.path('signin');
                     }
                     return $q.reject(res);

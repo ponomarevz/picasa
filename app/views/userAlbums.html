@@ -10,16 +10,11 @@
 					<img ng-src="{{item.media$group.media$thumbnail[0].url}}" alt="Зображення відсутнє" />
 					<h5 class="text-primary">{{item.title.$t}}</h5>
 			</div>			
-
-			
 																				
 			<div class="col-xs-9">	
-				<h5 class="text-primary">{{item.title.$t}}</h5>
-				<p class="small">sudfsdffffffffffffffffffffffffffffffffff ffffffffffffffff saajdasjkd askdjnaskdja
-				jsdhfdjhfffffffffffffffffffffffffffffff ahsdb ashdbas anhsdb ashdbas ajshbda ajshdba 
-				sdfsd sfsd wefe wefffffffffffffffffff swefwe erfwef wefwv wefwv
-				wefwe wgwefwe wefwev wew fff</p>
-				<span class="text-muted small">
+				<h5 class="text-primary">{{item.media$group.media$title.$t}}</h5>
+				 <p class="small">Описание альбома: {{item.summary.$t }} {{item.media$group.media$description.$t}}</p>
+				<div class="text-muted small">
 					<em>Cтворений:
 						<small>{{ item.published.$t | date : short : timezone}}</small>
 					</em>
@@ -27,10 +22,15 @@
 					<em>Оновлений:
 						<small>{{ item.updated.$t | date : short : timezone}}</small>
 					</em>
-				</span>
 				
+				</div>
 			</div>	
 			
+			<span ng-click = "userAlbums.openAutor(item.gphoto$user.$t, $event)" class="label label-info link" style="position:absolute; right:60px; bottom:5px;"> {{ userAlbums.author.author[0].name.$t}}</span>
+			<span ng-show = "item.gphoto$access.$t === 'public'" class="label label-success glyphicon glyphicon-eye-open" style="position:absolute; right:40px; top:5px;"> </span>
+			<span ng-show = "!item.gphoto$access.$t === 'public'" class="label label-danger glyphicon glyphicon-eye-close" style="position:absolute; right:40px; top:5px;"> </span>
+			
+			<span class="label label-default" style="position:absolute; right:10px;">{{item.gphoto$numphotos.$t}}</span>
 			
 			<div class="transit col-xs-1" style="padding:0;">
 				<a style="float:right; padding:0; margin:0"><span class="glyphicon glyphicon-chevron-right"></span></a>

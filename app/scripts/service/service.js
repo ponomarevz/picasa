@@ -2,8 +2,8 @@
 'use strict';
 /*jshint validthis:true */
 	
-	var server = 'http://localhost:9000/data/feed/api/';
-	//var server = 'http://picasaweb.google.com:80/data/feed/api/';
+	//var server = 'http://localhost:9000/data/feed/api/';
+	var server = 'http://picasaweb.google.com:80/data/feed/api/';
 	//------------сервис для авторизации------------
 	function autorService ($http, $localStorage, $state) {
 		/*------------Валидация токена после входа и сохранение парааметров -------

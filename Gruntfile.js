@@ -9,10 +9,7 @@
 
 module.exports = function (grunt) {
 	
-	grunt.loadNpmTasks('grunt-connect-proxy');
-	grunt.loadNpmTasks('grunt-contrib-connect');
-
-	var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest;
+	
 
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
@@ -80,14 +77,7 @@ module.exports = function (grunt) {
         hostname: 'localhost',
         livereload: 35729
       },
-	  proxies: [{
-		context: '/data/feed/api', // the context of the data service
-		host: 'picasaweb.google.com', // wherever the data service is running
-		https: true,
-		changeOrigin: true,
-		port: 443
-		
-	}],
+	  
       livereload: {
         options: {
           open: true,
@@ -103,7 +93,7 @@ module.exports = function (grunt) {
                 connect.static('./app/styles')
               ),
               connect.static(appConfig.app),
-			  proxySnippet
+	
 			  
             ];
           }
@@ -451,7 +441,7 @@ module.exports = function (grunt) {
       'clean:server',
       'wiredep',
       'concurrent:server',
-	  'configureProxies',
+	 
       'postcss:server',
       'connect:livereload',
       'watch'
