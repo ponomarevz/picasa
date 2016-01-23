@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('App').
-		controller('userAlbumsCtrl', function (userAlbums, userAlbumsService, $scope, $stateParams) {
+		controller('userAlbumsCtrl', function (userAlbums, userAlbumsService, $scope, $stateParams, $localStorage) {
 			
 			var vm = this;
 			
@@ -11,6 +11,13 @@ angular.module('App').
 			
 			vm.addAlbum = function() {
 				userAlbumsService.addAlbum(autorId);
+			}
+			
+			vm.isAddButton = function() {
+				
+				var autorId = $stateParams.autorId;
+				
+				return autorId == $localStorage.userId ? true : false;
 			}
 			
 			  // Регестрируем обработчик скрола, очень простой но рабочий пагинатор

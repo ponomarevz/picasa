@@ -117,15 +117,17 @@
 			});
 		//------ если токен существует добавляем к запросу текен если отве 401 или 403 или 500 делаем редирект--------
 		//----------------------------- таким образом обрабатываем каждый запрос к серверу--------------------
-		$httpProvider.interceptors.push(['$q', '$location', '$localStorage', function($q, $location, $localStorage) {
+		$httpProvider.interceptors.push(['$q', '$location', '$localStorage', function($q, $location, $localStorage,  $httpParamSerializerJQLike) {
             return {
                 'request': function (config) {
                     config.headers = config.headers || {};
-                    
-					if ($localStorage.tokenInfo) {
+                    config.headers['GData-Version'] = 2;
 					
-						config.headers.Authorization = $localStorage.tokenInfo.token_type 
-														+ ' ' + $localStorage.tokenInfo.access_token;
+					
+					if ($localStorage.tokenInfo) {
+						//--------------------не получилось с пикаса апи нужно через сервер------------
+						//config.headers.Authorization = $localStorage.tokenInfo.token_type 
+						//								+ ' ' + $localStorage.tokenInfo.access_token;
 						
 					}
 					

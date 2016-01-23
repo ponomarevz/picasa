@@ -6,7 +6,6 @@ angular.module('App').
 			var vm = this;
 			//----------------фотографии в альбоме-----------
 			vm.photo = userPhoto;
-			
-			
+					
 			
 		});

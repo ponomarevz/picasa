@@ -14,8 +14,8 @@ angular.module('App').
 			//--------------------------логинимся через google--------------------
 			vm.login = function() {
 				var client_id='394850313404-35e3blaofgnk97j0618h900p0fr0ammf.apps.googleusercontent.com';
-				var scope='email http://picasaweb.google.com/data'; // --- такой токен
-				var redirect_uri='http://localhost:9000';
+				var scope='email http://picasaweb.google.com/data/'; // --- такой токен
+				var redirect_uri='http://etest.optimus-it.biz';
 				var response_type='token';
 				
 				
