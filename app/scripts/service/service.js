@@ -3,9 +3,15 @@
 /*jshint validthis:true */
 	
 	//var server = 'http://localhost:9000/data/feed/api/';
-	var server = 'http://picasaweb.google.com:80/data/feed/api/';
+
+//	var server = 'http://picasaweb.google.com:80/data/feed/api/';
+
+	//var server = 'http://etest.optimus-it.biz/prox.php?https://picasaweb.google.com:80/data/feed/api/';
+//	var server_api = 'https://picasaweb.google.com/data/feed/api/';
+	var server = 'http://etest.optimus-it.biz/prox.php?';
+
 	//------------сервис для авторизации------------
-	function autorService ($http, $localStorage, $state) {
+	function autorService ($http, $localStorage, $state, $httpParamSerializerJQLike) {
 		/*------------Валидация токена после входа и сохранение парааметров -------
 		----------сохранение его в localStorage-----*/
 		this.validation = function (tokenInfo) {
@@ -23,9 +29,10 @@
 							$localStorage.user = res.data.email;
 							$localStorage.userId = res.data.sub;
 							$localStorage.token = 1;
+							$localStorage.tokenQuery = '&access_token=' + tokenInfo.access_token;
 							
 							//-----------------не сохраняем в хистори--------------------------
-							window.location.replace('http://localhost:9000/#/albums/' + res.data.sub);
+							window.location.replace('http://etest.optimus-it.biz/#/albums/' + res.data.sub);
 																												
 						} else {
 							res.status = 'Ви не авторизовані';
@@ -43,7 +50,7 @@
 		//-----------логаут путем очистки токена в localStorage----------
 		this.LogOut = function() {
 			$localStorage.$reset();
-			window.location = 'https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost:9000';
+			window.location = 'https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://etest.optimus-it.biz';
 		};
 	}
 	
@@ -54,19 +61,23 @@
 	//---------------------------------------------------------------------------------------------------------------------------------------
 	//------------сервис для извлечения товаров------------
 				
-	function albumService ($http) {
+	function albumService ($http, $httpParamSerializerJQLike, $localStorage) {
 		
 		var max_result = 16;
 		var start = 1;
 				
 		//------------запрос списка продуктов-----
 		this.getAlbum = function (autorId, albumId) {
+			var q = '';
+			if ($localStorage.tokenQuery) {
+				q = $localStorage.tokenQuery;
+			}
+			var resurs = server + 'url' + $httpParamSerializerJQLike(server_api + 'user/' + autorId +'/albumid/' + albumId + '?alt=json' + '&start-index=' + start + '&max-results=' + max_result + '&kind=photo' + q);
 			
-			var resurs = server + 'user/' + autorId +'/albumid/' + albumId + '?alt=json' + '&start-index=' + start + '&max-results=' + max_result + '&kind=photo' + '&callback=JSON_CALLBACK';;
-			
-				return $http.jsonp(resurs).then(function(res) {
+				return $http({method: 'get', url: resurs}).then(function(res) {
 						start = start + max_result;
-						return res.data.feed;
+						
+						return res.data.contents.feed;
 					});
 		
 		};
@@ -87,24 +98,34 @@
 
 	//------------сервис для извлечения списка альбомов пользователя------------
 				
-	function userAlbumsService ($http) {
+	function userAlbumsService ($http, $httpParamSerializerJQLike, $localStorage) {
 		
 		var max_result = 20;
 		var start = 1;
 		
 		//------------запрос списка альбомов-----
 		this.getAlbums = function (autorId) {
-			var resurs = server + 'user/' + autorId + '?alt=json' + '&start-index=' + start + '&max-results=' + max_result;
+			var q = '';
+			if ($localStorage.tokenQuery) {
+				q = $localStorage.tokenQuery;
+			}
+			
+			var resurs = server + 'url' + $httpParamSerializerJQLike(server_api + 'user/' + autorId + '?alt=json' + '&start-index=' + start + '&max-results=' + max_result + q);
 							
 				 return $http({method: 'get', url: resurs}).then(function(res) {
+						
 						start = start + max_result;
-						return res.data.feed;
+						return res.data.contents.feed;
 					});
 		};
 		
 		//------------добавить альбом-----
 		this.addAlbum = function (autorId) {
-			var resurs = server + 'user/' + autorId + '?alt=json';
+			var q = '';
+			if ($localStorage.tokenQuery) {
+				q = $localStorage.tokenQuery;
+			}
+			var resurs = server + 'user/' + autorId;// + '?alt=json';
 							
 				 return $http({method: 'POST', url: resurs}).then(function(res) {
 						return res;
@@ -124,14 +145,18 @@
 			
 			//------------сервис для извлечения списка альбомов пользователя------------
 				
-	function userPhotoService ($http) {
+	function userPhotoService ($http, $httpParamSerializerJQLike, $localStorage) {
 					
 		//------------запрос списка продуктов-----
 		this.getPhoto = function (userId, albumId, photoId) {
-			var resurs = server + 'user/' + userId + '/albumid/' + albumId + '/photoid/' + photoId + '?alt=json&callback=JSON_CALLBACK';
+			var q = '';
+			if ($localStorage.tokenQuery) {
+				q = $localStorage.tokenQuery;
+			}
+			var resurs = server + 'url' + $httpParamSerializerJQLike(server_api + 'user/' + userId + '/albumid/' + albumId + '/photoid/' + photoId + '?alt=json' + q);
 			
-				 return $http.jsonp(resurs, {method: 'get'}).then(function(res) {
-						return res.data.feed;
+				 return $http({method: 'get', url: resurs}).then(function(res) {
+						return res.data.contents.feed;
 					});
 		};
 	}
@@ -150,7 +175,6 @@
 				var setCred = function(cr) {
 					
 					cred = cr;
-					
 				};
 				
 				var getCred = function() {

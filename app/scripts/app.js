@@ -97,7 +97,7 @@
 	})
 	.config(function($urlRouterProvider, $httpProvider, $authProvider){
 		 
-		$urlRouterProvider.when('', '/albums/default').
+		$urlRouterProvider.when('', '/albums/109660663401260259529').
 			rule(function ($injector, $location) {
 				//------------ловим ответ от google---------------
 				var path = $location.path().substring(1);
@@ -117,15 +117,17 @@
 			});
 		//------ если токен существует добавляем к запросу текен если отве 401 или 403 или 500 делаем редирект--------
 		//----------------------------- таким образом обрабатываем каждый запрос к серверу--------------------
-		$httpProvider.interceptors.push(['$q', '$location', '$localStorage', function($q, $location, $localStorage) {
+		$httpProvider.interceptors.push(['$q', '$location', '$localStorage', function($q, $location, $localStorage,  $httpParamSerializerJQLike) {
             return {
                 'request': function (config) {
                     config.headers = config.headers || {};
-                    
+                    config.headers['GData-Version'] = 2;
+					
+					
 					if ($localStorage.tokenInfo) {
-					   
-					//config.headers.Authorization = $localStorage.tokenInfo.token_type 
-					//									+ ' ' + $localStorage.tokenInfo.access_token;
+						//--------------------не получилось с пикаса апи нужно через сервер------------
+						//config.headers.Authorization = $localStorage.tokenInfo.token_type 
+						//								+ ' ' + $localStorage.tokenInfo.access_token;
 						
 					}
 					

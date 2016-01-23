@@ -9,7 +9,7 @@
 
 module.exports = function (grunt) {
 	
-	
+
 
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
@@ -29,6 +29,18 @@ module.exports = function (grunt) {
 
   // Define the configuration for all the tasks
   grunt.initConfig({
+	  
+	   proxy: {
+    proxy1 : {
+    	options : {
+    		port : 8050,                 // start proxy server, listening to the port 8050 
+        target : {                   // make it forward all the requests to localhost:8011 
+          host: 'localhost',
+          port: 8011
+        }
+		  }
+    }
+	   },
 
     // Project settings
     yeoman: appConfig,

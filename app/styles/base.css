@@ -159,6 +159,7 @@
 .albums.row:hover  .transit{
 	opacity: 1;
 }
+
 .albums .link {
 	transition: all 0.7s;
 	opacity: 0.5;
@@ -166,6 +167,13 @@
 .albums .link:hover {
 	color: black;
 	opacity: 1;
+}
+
+.albums .date-info {
+	font-size:10px;
+}
+.albums .opus {
+	border-bottom: solid 2px #52b6ec;
 }
 /*--------------оформление карточки фотки----------- */
 .photo img {
@@ -176,3 +184,6 @@
 	color: #52b6ec;
 	font-size: 16px;
 }
+
+
+
