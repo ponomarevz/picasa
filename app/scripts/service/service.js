@@ -2,20 +2,16 @@
 'use strict';
 /*jshint validthis:true */
 	
-	//var server = 'http://localhost:9000/data/feed/api/';
-
-//	var server = 'http://picasaweb.google.com:80/data/feed/api/';
-
-	//var server = 'http://etest.optimus-it.biz/prox.php?https://picasaweb.google.com:80/data/feed/api/';
+	var server1 = 'http://etest.optimus-it.biz/addAlbum.php?';
 	var server_api = 'https://picasaweb.google.com/data/feed/api/';
 	var server = 'http://etest.optimus-it.biz/prox.php?';
-
+	
 	//------------сервис для авторизации------------
 	function autorService ($http, $localStorage, $state, $httpParamSerializerJQLike) {
 		/*------------Валидация токена после входа и сохранение парааметров -------
 		----------сохранение его в localStorage-----*/
 		this.validation = function (tokenInfo) {
-			//alert(JSON.stringify(tokenInfo));
+			
 			var resurs = 'https://www.googleapis.com/oauth2/v3/tokeninfo?access_token=' + tokenInfo.access_token;
 						
 			//-------------post запрос на авторизацию-------
@@ -43,8 +39,6 @@
 						//---------если запрос не успешен возвр ответ 
 						return res;
 					});
-					
-		
 		};
 		
 		//-----------логаут путем очистки токена в localStorage----------
@@ -120,16 +114,31 @@
 		};
 		
 		//------------добавить альбом-----
-		this.addAlbum = function (autorId) {
-			var q = '';
-			if ($localStorage.tokenQuery) {
-				q = $localStorage.tokenQuery;
-			}
-			var resurs = server + 'user/' + autorId;// + '?alt=json';
+		this.addAlbum = function (autorId, al) {
+			
+			//----------формируем данные------------
+			var data = {autorId: autorId,
+						title: al.title,
+						access: al.access.zn,
+						description: al.description
+				};
 							
-				 return $http({method: 'POST', url: resurs}).then(function(res) {
+			if ($localStorage.tokenQuery) {
+				data.token = $localStorage.tokenInfo.access_token;
+			};
+						
+				 return $http({method: 'POST', 
+							url: server1, 
+							data: data 
+							}).then(function(res) {
+								// id -- https://googlrapi/user/album -- 
+								var id_ar = res.data.id.split('/');
+								var id_al = id_ar[id_ar.length - 1];
+								
+								window.location.replace('http://etest.optimus-it.biz/#/album/' +  autorId + "/" + id_al);
 						return res;
 					});
+					//--------------отработка ошибок необходима----
 		};
 		
 		//------------обнуление стартового индекса-----

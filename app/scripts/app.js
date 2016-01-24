@@ -47,6 +47,16 @@
 					}
 				}
 			})
+			.state('addAlbum', {
+				url:'/addAlbum/:autorId',
+				views: {
+					'centrV@' : {
+						templateUrl:'views/addalbum.html',
+						controller:'addAlbumCtrl',
+						controllerAs:'addAlbum'
+					},
+				}
+			})
 			.state('album', {
 				url:'/album/:autorId/:albumId',
 				views: {
@@ -142,8 +152,10 @@
 					//------ сделал 500 для тестирования с запроса на комент без токена редирект, -------------------
 					//-------------хотя в отображении убрал возможность отпр комент-----------------------------------
 					// так потомучто ответ от прокси скрипта
+					alert("res.status.http_code");
                     if(res.status.http_code === 401 || res.status.http_code === 403 || res.status.http_code === 500) {
-                        $location.path('signin');
+                        alert("dasd");
+						$location.path('signin');
                     }
                     return $q.reject(res);
                 }

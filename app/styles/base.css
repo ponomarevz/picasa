@@ -138,7 +138,6 @@
 .albums.row {
 	position: relative;
 	border-radius:5px; 
-	cursor: pointer;
 	padding: 5px;
 }
 
@@ -157,16 +156,25 @@
 }
 
 .albums.row:hover  .transit{
+	transform: scale(1.1);
 	opacity: 1;
 }
 
-.albums .link {
-	transition: all 0.7s;
-	opacity: 0.5;
-}
 .albums .link:hover {
+	cursor: pointer;
 	color: black;
 	opacity: 1;
+}
+
+.albums .perehod {
+	color: grey;
+	font-size:20px;
+	transition: all 0.7s;
+}
+
+.albums .perehod:hover{
+	color: #52b6ec;
+	font-size:22px;
 }
 
 .albums .date-info {

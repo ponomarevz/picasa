@@ -22,7 +22,7 @@ angular.module('App').
 			
 			vm.openAutor = function(user, $event) {
 			
-				window.location = 'http://localhost:9000/#/albums/' + user;
+				window.location = 'http://etest.optimus-it.biz/#/albums/' + user;
 				$event.stopPropagation();
 				
 			}

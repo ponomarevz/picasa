@@ -1,0 +1,29 @@
+<div class="container">
+    <h1>Добавить альбом</h1>
+    
+	<form role="form" name="albumform">
+		<div style="margin-bottom: 25px" class="form-group" ng-class="{'has-error': albumform.title.$invalid }">
+            <label for="title">Название альбома</label>
+			<input id="title" type="text" ng-model="al.title" class="form-control" name="title" placeholder="Название альбома" required ng-pattern="/^[a-zA-ZА-Яа-яІіЇїЄє0-9 ,:;.]*$/" ng-minlength = 2 ng-maxlength=15>
+		</div>
+		
+		<div style="margin-bottom: 25px" class="form-group" ng-class="{'has-error': albumform.access.$invalid }">
+			<label for="access">Тип доступа</label>
+			<select ng-model="al.access" class="form-control" name="access" id="access" required
+				ng-options="item.title for item in addAlbum.access">
+			</select>
+		</div>
+		
+		<div style="margin-bottom: 25px" class="form-group" ng-class="{'has-error': albumform.description.$invalid }">
+			<label for="description">Оставте описание</label>
+			<textarea id = "description" ng-model="al.description" name = "description" class = "form-control" rows = "3"
+				name="coment" ng-maxlength=50 ng-pattern="/^[a-zA-ZА-Яа-яІіЇїЄє0-9 ,:;.]*$/"></textarea>
+		</div>	
+		
+		<button class="btn btn-success" style= "margin-top:5px;" ng-click="addAlbum.addAlbum(albumform, al)">Добавить альбом</button>
+	</form>
+				
+					
+				
+</div>
+		

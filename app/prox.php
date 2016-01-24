@@ -137,7 +137,7 @@
 
 // Change these configuration options if needed, see above descriptions for info.
 $enable_jsonp    = false;
-$enable_native   = false;
+$enable_native   = true;
 $valid_url_regex = '/.*/';
 
 // ############################################################################
@@ -160,6 +160,7 @@ if ( !$url ) {
   $ch = curl_init( $url );
   
   if ( strtolower($_SERVER['REQUEST_METHOD']) == 'post' ) {
+	 
     curl_setopt( $ch, CURLOPT_POST, true );
     curl_setopt( $ch, CURLOPT_POSTFIELDS, $_POST );
   }
