@@ -26,6 +26,27 @@
 				}
 				
 			})
+			.state('comunity', {
+				url:'/comunity',
+				views: {
+					'centrV@' : {
+						templateUrl:'views/comunity.html',
+						controller:'userComunityCtrl',
+						controllerAs:'userAlbums'
+					},
+				},
+				resolve: {
+					userAlbums: function(userAlbumsService, $stateParams) {
+						
+						var autorId = $stateParams.autorId;
+												
+						userAlbumsService.setStart(1);	//--------при переходе начинаем с первой странички
+						return userAlbumsService.getAlbumsCom().then(function(res){
+							return res;
+						});
+					}
+				}
+			})
 			.state('albums', {
 				url:'/albums/:autorId',
 				views: {
@@ -70,6 +91,27 @@
 					}
 				}
 			})
+			.state('search', {
+				url:'/search/:qStr',
+				views: {
+					'centrV@' : {
+						templateUrl:'views/album.html',
+						controller:'albumCtrl',
+						controllerAs:'album'
+					},
+				},
+				resolve: {
+					userAlbum: function($stateParams, userPhotoService) {
+						
+						var qStr = $stateParams.qStr;
+												
+						return userPhotoService.findPhoto(qStr).then(function(res){
+							return res;
+						});
+						
+					}
+				}
+			})
 			.state('photo', {
 				url:'/photo/:userId/:albumId/:photoId',
 				views: {
@@ -97,7 +139,7 @@
 	})
 	.config(function($urlRouterProvider, $httpProvider, $authProvider){
 		 
-		$urlRouterProvider.when('', '/albums/default').
+		$urlRouterProvider.when('', '/comunity').
 			rule(function ($injector, $location) {
 				//------------ловим ответ от google---------------
 				var path = $location.path().substring(1);
@@ -139,7 +181,13 @@
                         $location.path('signin');
                     }
                     return $q.reject(res);
-                }
+                },
+				'response': function(res) {
+						//if (res.data.status.http_code === 403) {
+						//	
+						//}
+					return res;
+				}
             };
         }]);
 		

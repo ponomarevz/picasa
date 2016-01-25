@@ -44,9 +44,9 @@
 			<div class="col-sm-4 col-md-4">
 				<form class="navbar-form">
 					<div class="input-group">
-						<input type="text" ng-model= "param" class="form-control" placeholder="Пошук" name="q">
+						<input type="text" ng-model= "qStr" class="form-control" placeholder="Пошук" name="q">
 						<div class="input-group-btn">
-							<a class="btn btn-default" ng-href="/#search/{{param}}"><i class="glyphicon glyphicon-search"></i></a>
+							<a class="btn btn-default" ui-sref="search({qStr: qStr})"><i class="glyphicon glyphicon-search"></i></a>
 						</div>
 					</div>
 				</form>
@@ -116,6 +116,8 @@
 		<script src="scripts/controllers/albumCtrl.js"></script>
 		<script src="scripts/controllers/userAlbumsCtrl.js"></script>
 		<script src="scripts/controllers/userPhotoCtrl.js"></script>
+		<script src="scripts/controllers/userComunityCtrl.js"></script>
+		
         <!-- endbuild -->
 </body>
 </html>

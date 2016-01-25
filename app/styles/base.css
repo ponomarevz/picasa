@@ -1,4 +1,3 @@
-
 /*-------------- анимировать переходы----------- */
 @keyframes fadeIn {
 	from { opacity: 0; transform: scale(0.7); }
@@ -70,13 +69,13 @@
 
 .album .caption {
 	background-color:pink;
-	
 }
 
-.album .caption h4 {
-	font-size: 10px;
+.album .caption  {
+	font-size: 12px;
 	text-align: center;
 	margin:0;
+	font-weight: bold;
 }
 
 .album img {
@@ -85,18 +84,27 @@
 	border-radius: 2px;
 	transform: scale(0.97); 
 }
-
 .album .hover {
 	position: absolute;
-	bottom: 35px;
+	bottom: 30px;
 	width:100%;
 	opacity: 0;
 	transition: 0.7s;
 	margin: 4px 0;
+	max-height:70px;
+	overflow: hidden;
+}
+.album .hover .opus{
+	max-height:50px;
+	overflow: hidden;
+	color: #fff; 
+	padding: 2px;
+	font-size: 12px;
+	line-height: 12px;
 }
 .album .hover p {
 	margin:5px 10px;
-	line-height: 10px;
+	line-height: 11px;
 }
 .album .thumbnail:hover .hover {
 	background-color: #52b6ec;
@@ -114,6 +122,12 @@
 	padding: 0 4px!important;
 }
 
+/*------------------------------------------------------------------------------------------------ */
+.albums .caption {
+	word-wrap: break-word;
+	white-space: pre-wrap;
+}
+
 .albums img {
 	border-radius:4px;
 	padding-bottom:4px;
@@ -121,13 +135,15 @@
 	border-radius:10px;
 }
 
-.albums p {
-	line-height: 5px;
+.vertical-align {
+    display: flex;
+    align-items: center;
 }
 
 .albums.row {
+	position: relative;
 	border-radius:5px; 
-	cursor: pointer;
+	padding: 5px;
 }
 
 .albums.row:nth-of-type(odd) {
@@ -145,5 +161,39 @@
 }
 
 .albums.row:hover  .transit{
+	transform: scale(1.1);
 	opacity: 1;
+}
+
+.albums .link:hover {
+	cursor: pointer;
+	color: black;
+	opacity: 1;
+}
+
+.albums .perehod {
+	color: grey;
+	font-size:20px;
+	transition: all 0.7s;
+}
+
+.albums .perehod:hover{
+	color: #52b6ec;
+	font-size:22px;
+}
+
+.albums .date-info {
+	font-size:10px;
+}
+.albums .opus {
+	border-bottom: solid 2px #52b6ec;
+}
+/*--------------оформление карточки фотки----------- */
+.photo img {
+	display:block;
+	margin: auto;
+}
+.photo .title {
+	color: #52b6ec;
+	font-size: 16px;
 }

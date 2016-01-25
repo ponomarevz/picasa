@@ -2,8 +2,8 @@
 'use strict';
 /*jshint validthis:true */
 	
-	var server = 'http://localhost:9000/data/feed/api/';
-	//var server = 'http://picasaweb.google.com:80/data/feed/api/';
+	//var server = 'http://localhost:9000/data/feed/api/';
+	var server = 'http://picasaweb.google.com:80/data/feed/api/';
 	//------------сервис для авторизации------------
 	function autorService ($http, $localStorage, $state) {
 		/*------------Валидация токена после входа и сохранение парааметров -------
@@ -93,9 +93,19 @@
 		var start = 1;
 		
 		//------------запрос списка альбомов-----
+		this.getAlbumsCom = function () {
+			//var resurs = server + 'user/' + autorId + '?alt=json' + '&start-index=' + start + '&max-results=' + max_result;
+				var resurs = "https://picasaweb.google.com/data/feed/tiny/featured?alt=json&kind=photo&slabel=featured&max-results=" + max_result + '&start-index=' + start;		
+				 return $http({method: 'get', url: resurs}).then(function(res) {
+						start = start + max_result;
+						return res.data.feed;
+					});
+		};
+		
+		//------------запрос списка альбомов-----
 		this.getAlbums = function (autorId) {
 			var resurs = server + 'user/' + autorId + '?alt=json' + '&start-index=' + start + '&max-results=' + max_result;
-							
+					
 				 return $http({method: 'get', url: resurs}).then(function(res) {
 						start = start + max_result;
 						return res.data.feed;
@@ -134,6 +144,17 @@
 						return res.data.feed;
 					});
 		};
+		
+		this.findPhoto = function(qStr) {
+	
+			var resurs = server + 'all?q=-' + qStr + '&max-results=10&alt=json&kind=photo&uname=115446764672312961800&callback=JSON_CALLBACK';
+			alert(resurs);
+			return $http.jsonp(resurs, {method: 'get'}).then(function(res) {
+						alert(JSON.stringify(res.data.feed));
+						return res.data.feed;
+						
+					});
+		}
 	}
 	
 	angular
