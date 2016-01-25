@@ -97,6 +97,23 @@
 		var max_result = 20;
 		var start = 1;
 		
+		
+		//------------запрос списка альбомов-----
+		this.getAlbumsCom = function () {
+						
+			var q = '';
+			if ($localStorage.tokenQuery) {
+				q = $localStorage.tokenQuery;
+			};
+				
+				var resurs = server + 'url' + $httpParamSerializerJQLike('https://picasaweb.google.com/data/feed/tiny/featured?alt=json&kind=photo&slabel=featured&max-results=' + max_result + '&start-index=' + start +q);		
+						
+				return $http({method: 'get', url: resurs}).then(function(res) {
+						start = start + max_result;
+						return res.data.contents.feed;
+					});
+		};
+		
 		//------------запрос списка альбомов-----
 		this.getAlbums = function (autorId) {
 			var q = '';

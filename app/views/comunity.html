@@ -1,0 +1,43 @@
+<div class="container">
+		    
+	<div  class="container" style="margin-top:25px;">
+				
+		<div endless-scroll = "item in userAlbums.albums" class="row vertical-align albums">
+			
+			<div class="col-xs-2">
+					<img ng-src="{{item.media$group.media$thumbnail[0].url}}" alt="Зображення відсутнє" />
+					<div style="margin:auto; font-size:10px;">{{item.title.$t}}</div>
+			</div>			
+																				
+			<div class="col-xs-9">	
+
+
+				<h5 class="text-primary">{{item.media$group.media$title.$t}}</h5>
+				<p class="small opus">Описание альбома: {{item.media$group.media$description.$t}}</p>
+				<div class="text-muted date-info">
+					<div>Cтворений: {{ item.gphoto$featuredDate.$t | date : short : timezone}}</div>
+				</div>
+
+				
+				
+			</div>	
+			
+			<span ui-sref = "albums({autorId: item.author[0].gphoto$user.$t})" class="transit label label-info link" style="position:absolute; right:80px; bottom:10px;"> {{ item.author[0].name.$t}}</span>
+			<span ng-show = "item.gphoto$access.$t === 'public'" class="label label-success glyphicon glyphicon-eye-open" style="position:absolute; right:10px; top:5px;"> </span>
+			<span ng-show = "item.gphoto$access.$t === 'protected'" class="label label-danger glyphicon glyphicon-eye-close" style="position:absolute; right:10px; top:5px;"> </span>
+			<span ng-show = "item.gphoto$access.$t === 'private'" class="label label-warning glyphicon glyphicon-eye-close" style="position:absolute; right:10px; top:5px;"> </span>
+			
+			
+			
+			<div class="transit col-xs-1" style="padding:0;">
+				<a style="float:right; padding:0; margin:0" ui-sref="album({autorId: item.author[0].gphoto$user.$t, albumId: item.gphoto$albumid.$t})">
+					<span class="perehod glyphicon glyphicon-chevron-right"></span>
+				</a>
+			</div>							
+	
+		</div>					
+
+				
+	</div>
+		
+</div>

@@ -1,6 +1,6 @@
 'use strict';
 
-	angular.module('App', ['ui.router', 'ngAnimate', 'ngStorage', 'dc.endlessScroll']);
+	angular.module('App', ['ui.router', 'ngAnimate', 'ngStorage', 'dc.endlessScroll', 'angularFileUpload']);
 	
 		angular.module('App').
 		config(function($stateProvider, $authProvider) {
@@ -25,6 +25,27 @@
 					}
 				}
 				
+			})
+			.state('comunity', {
+				url:'/comunity',
+				views: {
+					'centrV@' : {
+						templateUrl:'views/comunity.html',
+						controller:'userComunityCtrl',
+						controllerAs:'userAlbums'
+					},
+				},
+				resolve: {
+					userAlbums: function(userAlbumsService, $stateParams) {
+						
+						var autorId = $stateParams.autorId;
+												
+						userAlbumsService.setStart(1);	//--------при переходе начинаем с первой странички
+						return userAlbumsService.getAlbumsCom().then(function(res){
+							return res;
+						});
+					}
+				}
 			})
 			.state('albums', {
 				url:'/albums/:autorId',
@@ -107,7 +128,7 @@
 	})
 	.config(function($urlRouterProvider, $httpProvider, $authProvider){
 		 
-		$urlRouterProvider.when('', '/albums/109660663401260259529').
+		$urlRouterProvider.when('', '/comunity').
 			rule(function ($injector, $location) {
 				//------------ловим ответ от google---------------
 				var path = $location.path().substring(1);

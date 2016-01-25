@@ -1,6 +1,8 @@
 <div class="container">
-    <h1>Добавить альбом</h1>
     
+    <div class = "row">
+	<div class="col-xs-12 col-md-6">
+	<h3>Добавить альбом</h3>
 	<form role="form" name="albumform">
 		<div style="margin-bottom: 25px" class="form-group" ng-class="{'has-error': albumform.title.$invalid }">
             <label for="title">Название альбома</label>
@@ -22,8 +24,81 @@
 		
 		<button class="btn btn-success" style= "margin-top:5px;" ng-click="addAlbum.addAlbum(albumform, al)">Добавить альбом</button>
 	</form>
+	</div>
+	<div class="col-xs-12 col-md-6">
+		
+		<h3>Выберите файл изображения</h3>
+		<input type="file" nv-file-select="" uploader="uploader" multiple /><br/>
+	
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th width="50%">Название</th>
+                                <th ng-show="uploader.isHTML5">Загрузка</th>
+                                <th>Статус</th>
+                                <th>Действия</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in uploader.queue">
+                                <td>
+                                    <strong>{{ item.file.name }}</strong>
+                                   
+                                    <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, height: 40 }"></div>
+                                   {{ item.file.size/1024/1024|number:2 }} MB
+                                </td>
+                                
+                                <td ng-show="uploader.isHTML5">
+                                    <div class="progress" style="margin-bottom: 0;">
+                                        <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+                                    <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                                    <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+                                </td>
+                                <td nowrap>
+                                    <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+                                        <span class="glyphicon glyphicon-upload"></span> Загрузить
+                                    </button>
+                                    
+                                    <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
+                                        <span class="glyphicon glyphicon-trash"></span> Удалить
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div>
+                        <div>
+                            Состояние загрузки:
+                            <div class="progress" style="">
+                                <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-success btn-xs" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
+                            <span class="glyphicon glyphicon-upload"></span> Загрузить все
+                        </button>
+                        
+                        <button type="button" class="btn btn-danger btn-xs" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
+                            <span class="glyphicon glyphicon-trash"></span> Удалить все
+                        </button>
+                    </div>
+
+
+
+            </div>
+
+      
+		
+				
+		</div>
+	</div>
 				
 					
 				
-</div>
+
 		

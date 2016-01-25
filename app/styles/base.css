@@ -68,15 +68,15 @@
 	margin-top: 10px;
 }
 
-.album .caption {
-	background-color:pink;
-}
-
 .album .caption  {
 	font-size: 12px;
 	text-align: center;
 	margin:0;
 	font-weight: bold;
+	height:35px;
+	background-color:pink;
+	overflow: hidden;
+	line-height:13px;
 }
 
 .album img {
@@ -123,6 +123,11 @@
 	padding: 0 4px!important;
 }
 
+.albums .caption {
+	word-wrap: break-word;
+	white-space: pre-wrap;
+}
+
 .albums img {
 	border-radius:4px;
 	padding-bottom:4px;
@@ -137,7 +142,7 @@
 
 .albums.row {
 	position: relative;
-	border-radius:5px; 
+	border-radius:2px; 
 	padding: 5px;
 }
 
@@ -153,11 +158,16 @@
 .albums .transit {
 	transition: all 0.7s;
 	opacity: 0;
+	
 }
 
 .albums.row:hover  .transit{
 	transform: scale(1.1);
 	opacity: 1;
+}
+
+.albums .link {
+	font-size:8px;
 }
 
 .albums .link:hover {
@@ -178,9 +188,10 @@
 }
 
 .albums .date-info {
-	font-size:10px;
+	font-size:9px;
 }
 .albums .opus {
+	font-size: 11px;
 	border-bottom: solid 2px #52b6ec;
 }
 /*--------------оформление карточки фотки----------- */
