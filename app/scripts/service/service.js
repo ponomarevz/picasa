@@ -152,11 +152,40 @@
 								var id_ar = res.data.id.split('/');
 								var id_al = id_ar[id_ar.length - 1];
 								
-								window.location.replace('http://etest.optimus-it.biz/#/album/' +  autorId + "/" + id_al);
+							//	window.location.replace('http://etest.optimus-it.biz/#/album/' +  autorId + "/" + id_al);
+							res.id_al = id_al;
+							
 						return res;
 					});
 					//--------------отработка ошибок необходима----
 		};
+		
+		
+		this.addPhoto = function (autorId, albumId, img) {
+			
+			var serveraddP = 'http://etest.optimus-it.biz/addPhoto.php?';
+			//----------формируем данные------------
+			var data = {autorId: autorId,
+						albumId: albumId,
+						img: img
+				};
+							
+			if ($localStorage.tokenQuery) {
+				data.token = $localStorage.tokenInfo.access_token;
+			};
+						
+				 return $http({method: 'POST', 
+							url: serveraddP, 
+							data: data 
+							}).then(function(res) {
+								alert(JSON.stringify(res));
+								
+								//window.location.replace('http://etest.optimus-it.biz/#/album/' +  autorId + "/" + id_al);
+						return res;
+					});
+					//--------------отработка ошибок необходима----
+		};
+		
 		
 		//------------обнуление стартового индекса-----
 		this.setStart= function (st) {

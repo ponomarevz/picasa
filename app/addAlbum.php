@@ -31,7 +31,7 @@
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		$output = curl_exec($ch);
 		$info = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-			if($result !== FALSE) {
+			if($output !== FALSE) {
 			//echo"sada " . $info. "   " . $output;
 			//----------обработку ошибок добавить
 			$xmlO = simplexml_load_string($output);

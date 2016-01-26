@@ -5,7 +5,8 @@ angular.module('App').
 											$localStorage, FileUploader, $scope) {
 			
 			var vm = this;
-			
+			vm.albumId = null;
+			vm.img = null; // -------------сделать на очередь пока тестим
 			
 			var uploader = $scope.uploader = new FileUploader({
             url: 'http://etest.optimus-it.biz/upload.php'
@@ -43,6 +44,8 @@ angular.module('App').
         };
         uploader.onSuccessItem = function(fileItem, response, status, headers) {
             console.info('onSuccessItem', fileItem, response, status, headers);
+			//uploader.queue.file.name
+			vm.img = uploader.queue[0].file.name;
         };
         uploader.onErrorItem = function(fileItem, response, status, headers) {
             console.info('onErrorItem', fileItem, response, status, headers);
@@ -64,8 +67,20 @@ angular.module('App').
 			vm.addAlbum = function(albumform, al) {
 				var autorId = $stateParams.autorId;
 				if(albumform.$valid){
-					userAlbumsService.addAlbum(autorId, al);
+					userAlbumsService.addAlbum(autorId, al).then(function(res){
+						vm.albumId = res.id_al;
+						
+					});
+					
 				}
+			};
+			
+			vm.addPhoto = function(albumform, al) {
+				var autorId = $stateParams.autorId;
+					if (vm.albumId && vm.img) { //проверка альбом создан, файл загружен будем сохранять на google
+							alert(vm.albumId +" "+ vm.img);
+					  userAlbumsService.addPhoto(autorId, vm.albumId, vm.img);
+					}
 			};
 			
 			vm.access = [
