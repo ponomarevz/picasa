@@ -13,13 +13,28 @@ angular.module('App').
 				userAlbumsService.addAlbum(autorId);
 			};
 			
-			vm.isAddButton = function() {
+			
+			vm.deleAlbum = function(autorId, albumId, item) {
+				userAlbumsService.deleAlbum(autorId, albumId).then(function(res){
+					if(res.data == "200") {
+												
+						var index = vm.albums.indexOf(item);
+						
+							vm.albums[index].hide = 'hide';    
+												
+					}
+				});
+			};
+			
+			
+			vm.isAddButton = function(item) {
 				
 				var autorId = $stateParams.autorId;
 				
 				return autorId === $localStorage.userId ? true : false;
 			};
 			
+						
 			vm.openAutor = function(user, $event) {
 			
 				window.location = 'http://etest.optimus-it.biz/#/albums/' + user;

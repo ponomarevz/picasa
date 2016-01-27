@@ -33,17 +33,9 @@
 	
 	if($ret !== FALSE) {
 		
-			if (!unlink($imgName))
-		{
-			echo ("Error deleting $file");
-			}
-			else
-		{
-			echo ("Deleted $file");
-			}
-			//----------обработку ошибок добавить
-		$xmlO = simplexml_load_string($ret );
-				echo $xmlO ;
+			unlink($imgName);
+			
+			echo "ok"  ;
 	}
 
 curl_close($ch);

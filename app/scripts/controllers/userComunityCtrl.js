@@ -6,10 +6,7 @@ angular.module('App').
 			var vm = this;
 			
 			vm.albums = userAlbums.entry;
-			
-			
-			
-			
+						
 			  // Регестрируем обработчик скрола, очень простой но рабочий пагинатор
 			  $scope.$on('endlessScroll:next', function() {
 					

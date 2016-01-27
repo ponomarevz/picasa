@@ -78,7 +78,7 @@ angular.module('App').
 			vm.addPhoto = function(albumform, al) {
 				var autorId = $stateParams.autorId;
 					if (vm.albumId && vm.img) { //проверка альбом создан, файл загружен будем сохранять на google
-							alert(vm.albumId +" "+ vm.img);
+							
 					  userAlbumsService.addPhoto(autorId, vm.albumId, vm.img);
 					}
 			};

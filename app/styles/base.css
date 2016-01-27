@@ -204,5 +204,12 @@
 	font-size: 16px;
 }
 
+.hide1 {
+	
+	background-color: pink!important;
+	opacity: 0.5 !important;
+	transition: all 0.7s;
+	
+}
 
 

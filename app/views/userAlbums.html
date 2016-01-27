@@ -5,7 +5,7 @@
     
 	<div  class="container" style="margin-top:25px;">
 				
-		<div endless-scroll = "item in userAlbums.albums" class="row vertical-align albums">
+		<div endless-scroll = "item in userAlbums.albums" class="row vertical-align albums" ng-class="{'hide1 disabled' : item.hide == 'hide'}">
 			
 			<div class="col-xs-2">
 					<img ng-src="{{item.media$group.media$thumbnail[0].url}}" alt="Зображення відсутнє" />
@@ -26,18 +26,25 @@
 				
 			</div>	
 			
-			<span ng-click = "userAlbums.openAutor(item.gphoto$user.$t, $event)" class="transit label label-info link" style="position:absolute; right:80px; bottom:10px;"> {{ userAlbums.author.author[0].name.$t}}</span>
-			<span ng-show = "item.gphoto$access.$t === 'public'" class="label label-success glyphicon glyphicon-eye-open" style="position:absolute; right:40px; top:5px;"> </span>
-			<span ng-show = "item.gphoto$access.$t === 'protected'" class="label label-danger glyphicon glyphicon-eye-close" style="position:absolute; right:40px; top:5px;"> </span>
-			<span ng-show = "item.gphoto$access.$t === 'private'" class="label label-warning glyphicon glyphicon-eye-close" style="position:absolute; right:40px; top:5px;"> </span>
 			
-			<span class="label label-default" style="position:absolute; right:10px;">{{item.gphoto$numphotos.$t}}</span>
+			
+				<div ng-click = "userAlbums.deleAlbum(item.gphoto$user.$t, item.gphoto$id.$t, item)" class="transit label label-danger link" ng-show="userAlbums.isAddButton(item)" style="position:absolute; right:60px; bottom:10px; height:10px; margin:0; padding:0 2px;"> 
+					<span class="glyphicon glyphicon-minus"> </span>
+				</div>
+						
+				<span ng-click = "userAlbums.openAutor(item.gphoto$user.$t, $event)" class="transit label label-info link" style="position:absolute; right:80px; bottom:10px;"> {{ userAlbums.author.author[0].name.$t}}</span>
+				<span ng-show = "item.gphoto$access.$t === 'public'" class="label label-success glyphicon glyphicon-eye-open" style="position:absolute; right:40px; top:5px;"> </span>
+				<span ng-show = "item.gphoto$access.$t === 'protected'" class="label label-danger glyphicon glyphicon-eye-close" style="position:absolute; right:40px; top:5px;"> </span>
+				<span ng-show = "item.gphoto$access.$t === 'private'" class="label label-warning glyphicon glyphicon-eye-close" style="position:absolute; right:40px; top:5px;"> </span>
+			
+				<span class="label label-default" style="position:absolute; right:10px;">{{item.gphoto$numphotos.$t}}</span>
 			
 			<div class="transit col-xs-1" style="padding:0;">
 				<a style="float:right; padding:0; margin:0" ui-sref="album({autorId: item.gphoto$user.$t, albumId: item.gphoto$id.$t})">
 					<span class="perehod glyphicon glyphicon-chevron-right"></span>
 				</a>
-			</div>							
+			</div>	
+			
 	
 		</div>					
 

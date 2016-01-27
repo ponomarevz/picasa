@@ -161,6 +161,29 @@
 		};
 		
 		
+		this.deleAlbum = function (autorId, albumId) {
+			
+			//----------формируем данные------------
+			var data = {autorId: autorId,
+						albumId: albumId
+				};
+							
+			if ($localStorage.tokenQuery) {
+				data.token = $localStorage.tokenInfo.access_token;
+			};
+				var serverdele = 'http://etest.optimus-it.biz/delAlbum.php?';	
+				 return $http({method: 'POST', 
+							url: serverdele, 
+							data: data 
+							}).then(function(res) {
+														
+						return res;
+					});
+					//--------------отработка ошибок необходима----
+		};
+		
+		
+		
 		this.addPhoto = function (autorId, albumId, img) {
 			
 			var serveraddP = 'http://etest.optimus-it.biz/addPhoto.php?';
@@ -178,9 +201,11 @@
 							url: serveraddP, 
 							data: data 
 							}).then(function(res) {
-								alert(JSON.stringify(res));
 								
-								//window.location.replace('http://etest.optimus-it.biz/#/album/' +  autorId + "/" + id_al);
+								if(res.data == 'ok') {
+									//alert('http://etest.optimus-it.biz/#/album/' + autorId + '/' + albumId);
+									window.location = 'http://etest.optimus-it.biz/#/album/' + autorId + '/' + albumId;
+								}
 						return res;
 					});
 					//--------------отработка ошибок необходима----
