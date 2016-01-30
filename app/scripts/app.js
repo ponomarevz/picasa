@@ -142,50 +142,23 @@
 			});
 		//------ если токен существует добавляем к запросу текен если отве 401 или 403 или 500 делаем редирект--------
 		//----------------------------- таким образом обрабатываем каждый запрос к серверу--------------------
-		$httpProvider.interceptors.push(['$q', '$location', '$localStorage', function($q, $location, $localStorage,  $httpParamSerializerJQLike, $injector) {
-            return {
-                'request': function (config) {
-                    config.headers = config.headers || {};
-                    config.headers['GData-Version'] = 2;
-					
-					
-					if ($localStorage.tokenInfo) {
-						//--------------------не получилось с пикаса апи нужно через сервер------------
-						//config.headers.Authorization = $localStorage.tokenInfo.token_type 
-						//								+ ' ' + $localStorage.tokenInfo.access_token;
-						
-					}
-					
-                    return config;
-                },
-				'response': function(res) {
-					//------------------перехватіваю все ответі с сервера если есть статус 403 делаю  редирект на страницу авторизации
-					if (res.data.status) {
-						if (res.data.status.http_code === 403) {
-							$injector.get('utorService').LogIn();
-						}
-					}						
-					
-					return res;
-				},
-                'responseError': function(res) {
-					//status: {http_code: 403}, contents: "Token invalid - Invalid token: Stateless token expired"}
-					//contents: "Token invalid - Invalid token: Stateless token expired"
-					//status: {http_code: 403}
-					//http_code: 403
-					//alert(JSON.stringify(res));
-					//------ сделал 500 для тестирования с запроса на комент без токена редирект, -------------------
-					//-------------хотя в отображении убрал возможность отпр комент-----------------------------------
-					// так потомучто ответ от прокси скрипта
-					alert("res.status.http_code");
-                    if(res.status.http_code === 401 || res.status.http_code === 403 || res.status.http_code === 500) {
-                        alert("dasd");
-						$location.path('signin');
-                    }
-                    return $q.reject(res);
-                }
-            };
-        }]);
+		$httpProvider.interceptors.push('myIntercept');
 		
+	});
+	angular.module('App').factory('myIntercept', function($q, $injector) {
+		
+		var responseInterceptor = {
+			response: function(response) {
+						
+				if (response.data.status) {
+						if (response.data.status.http_code === 403) {
+							$injector.get('autorService').LogIn();
+						}
+					}		
+			
+                    return response; //асинхронная операция вернула ошибку
+          }
+		};
+ 		return responseInterceptor;
 	});
 	
