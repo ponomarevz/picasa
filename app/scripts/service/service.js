@@ -41,6 +41,25 @@
 					});
 		};
 		
+		//------------------------------LogIn()--------------------------
+		
+		this.LogIn = function() {
+			
+				var client_id='394850313404-35e3blaofgnk97j0618h900p0fr0ammf.apps.googleusercontent.com';
+				var scope='email http://picasaweb.google.com/data/'; // --- такой токен
+				var redirect_uri='http://etest.optimus-it.biz';
+				var response_type='token';
+				
+				
+				var url="https://accounts.google.com/o/oauth2/auth?scope=" + scope 
+					+ '&client_id=' + client_id 
+					+ '&redirect_uri=' + redirect_uri 
+					+ '&response_type=' + response_type;
+					
+				window.location.replace(url);
+		};
+		
+		
 		//-----------логаут путем очистки токена в localStorage----------
 		this.LogOut = function() {
 			$localStorage.$reset();
@@ -247,38 +266,7 @@
 
 
 	//--------------установливаем токен для передачи в сервис-------------------
-	angular
-		.module('App')
-			.provider('$auth', function() {
-				var cred;
-				
-				var setCred = function(cr) {
-					
-					cred = cr;
-				};
-				
-				var getCred = function() {
-					
-					return cred;
-				}
-				return {
 
-					setCred: setCred,
-					getCred: getCred,
-					cred: cred,
-										
-					$get: function() {
-						
-						return {
-							setCred: setCred,
-							getCred: getCred
-							
-						};
-					}
-
-				};
-
-		});
 	
 })(); //------локализируем обявления функций сервисов
 

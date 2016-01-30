@@ -54,7 +54,7 @@
 		 
         <ul class="nav navbar-nav navbar-static-top navbar-right" style="margin-right:20px;" ng-show="main.isAuthenticated()">
 		   <li class="dropdown">
-				<a class="dropdown-toggle" data-toggle="dropdown">{{main.user}}
+				<a class="dropdown-toggle" data-toggle="dropdown" ng-bind="main.user">
 				<span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a ng-click="main.logout()" style="cursor: pointer">Вихід</a></li> 
@@ -72,7 +72,7 @@
     </nav>
 
     <div class="container-fluid">
-		<div ui-view="centrV"></div>
+		<div ui-view="centrV" class="baseView"></div>
     </div>
 
     <div class="footer">

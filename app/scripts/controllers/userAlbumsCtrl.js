@@ -17,10 +17,17 @@ angular.module('App').
 			vm.deleAlbum = function(autorId, albumId, item) {
 				userAlbumsService.deleAlbum(autorId, albumId).then(function(res){
 					if(res.data == "200") {
-												
-						var index = vm.albums.indexOf(item);
 						
-							vm.albums[index].hide = 'hide';    
+						//-------------------------нужно еще продумать как проанимировать удаление строки в табличке
+						var index = vm.albums.indexOf(item);
+						vm.albums[index].hide = 'hide';  
+						
+						userAlbumsService.setStart(1);						
+						userAlbumsService.getAlbums(autorId).then(function(res){
+							vm.albums = [];
+							
+							vm.albums = res.entry;
+						});
 												
 					}
 				});
@@ -47,6 +54,19 @@ angular.module('App').
 					
 					userAlbumsService.getAlbums(autorId).then(function(res){
 							[].push.apply(vm.albums, res.entry);
+						});
+			});
+			
+			/*
+				при возникновении собітия albums-update происходит запрос данных 
+				с сервера и обновление модели вслед за чем идет обновлениие 
+				отображения
+			*/
+			$scope.$on('albums-update', function() {
+				
+				userAlbumsService.setStart(1);
+				userAlbumsService.getAlbums(autorId).then(function(res){
+							vm.albums = res.entry;
 						});
 			});
 			

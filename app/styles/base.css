@@ -5,7 +5,7 @@
 }
 
   
-[ui-view].ng-enter {
+.baseView.ng-enter {
 	animation-duration: 0.7s;
     animation-fill-mode: both;
     animation-name: fadeIn;
@@ -207,13 +207,78 @@
 .hide1 {
 	
 	background-color: pink!important;
-	opacity: 0 !important;
-	height:0!important;
-	padding:0!important;
-	margin:0!important;
-	overflow:hidden!important;
 	transition: all 0.7s;
 	
 }
+
+/*------------------------оформление меню для редактирования-------------------------- */
+
+.panel {
+	border: 0;
+}
+.panel.ng-enter, .panel.ng-leave {
+    transition: 1.5s;
+}
+
+
+/*------------------------
+1. обязательно транзитион на коневой виев
+2. дальше оформляем виев как он будет віглядет в результате заполнения шаблона
+3. потом добавляем переході для вхождения и исчезновения виева
+4. Переході заполняются следующим образом
+оформление меню для редактирования-------------------------- */
+
+
+.slide-menu {
+	position: fixed;
+	z-index: 200;
+	top: 0;
+	right: 0;
+	width:100%;
+	height: 100%;
+}
+
+.slide-menu .slide-shaddow {
+	background-color: black;
+	opacity: 0.2;
+	width: 70%;
+	height:100%;
+	position: absolute;
+	top: 0;
+	left:0;
+}
+.slide-menu .slide-item {
+	top: 0;
+	right: 0;
+	position: absolute;
+	background-color: #67b5d1;
+	min-width:150px;
+	width: 30%;
+	height:100%;
+	padding: 5px 10px;
+}
+
+.panel.ng-enter  .slide-menu  {
+	right: -100%;
+	transition: 1.5s;
+}
+
+.panel.ng-enter-active  .slide-menu  {
+	right: 0;
+	transition: 1.5s;
+}
+
+.panel.ng-leave  .slide-menu  {
+	left: 0;
+	transition: 1.5s;
+}
+
+.panel.ng-leave-active  .slide-menu  {
+	left: -100%;
+	transition: 1.5s;
+}
+
+
+  
 
 

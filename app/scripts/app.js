@@ -3,7 +3,7 @@
 	angular.module('App', ['ui.router', 'ngAnimate', 'ngStorage', 'dc.endlessScroll', 'angularFileUpload']);
 	
 		angular.module('App').
-		config(function($stateProvider, $authProvider) {
+		config(function($stateProvider) {
 		
 			
 		$stateProvider
@@ -14,17 +14,6 @@
 						templateUrl:'views/about.html',
 					},
 				},
-			})
-			.state('validation', {
-				url:'/validation',
-				resolve: {
-					valid: function(autorService) {
-						
-						var tokenInfo = $authProvider.getCred();
-						return autorService.validation(tokenInfo);
-					}
-				}
-				
 			})
 			.state('comunity', {
 				url:'/comunity',
@@ -68,10 +57,11 @@
 					}
 				}
 			})
-			.state('addAlbum', {
-				url:'/addAlbum/:autorId',
+			.state('albums.add', {
+				url:'/add',
 				views: {
-					'centrV@' : {
+					//----------------вложенній view add в состоянии albums 
+					'panel@albums' : {
 						templateUrl:'views/addalbum.html',
 						controller:'addAlbumCtrl',
 						controllerAs:'addAlbum'
@@ -126,7 +116,7 @@
 			});
 			
 	})
-	.config(function($urlRouterProvider, $httpProvider, $authProvider){
+	.config(function($urlRouterProvider, $httpProvider){
 		 
 		$urlRouterProvider.when('', '/comunity').
 			rule(function ($injector, $location) {
@@ -141,14 +131,18 @@
 					}
 					
 					if (tokenInfo.access_token) {
-						$authProvider.setCred(tokenInfo);
-							return "/validation"; 
+						
+						/* ----------------инжектируем сервисы на стадии конфига приложения можна свои а можна HTTP устранение циклических связей
+						пользовательский сервис не может біть подключен на єтапе конфига приложения посколу он еще не существует, кроме того сервис 
+						http тоже неможет біть подключен возможні циклические ссілки но их можна инжектирловать (создать новій екземпляр)
+						-------------------------------------------------------------------------------------------------------------------------*/
+						return $injector.get('autorService').validation(tokenInfo);
 					}
 					
 			});
 		//------ если токен существует добавляем к запросу текен если отве 401 или 403 или 500 делаем редирект--------
 		//----------------------------- таким образом обрабатываем каждый запрос к серверу--------------------
-		$httpProvider.interceptors.push(['$q', '$location', '$localStorage', function($q, $location, $localStorage,  $httpParamSerializerJQLike) {
+		$httpProvider.interceptors.push(['$q', '$location', '$localStorage', function($q, $location, $localStorage,  $httpParamSerializerJQLike, $injector) {
             return {
                 'request': function (config) {
                     config.headers = config.headers || {};
@@ -164,6 +158,16 @@
 					
                     return config;
                 },
+				'response': function(res) {
+					//------------------перехватіваю все ответі с сервера если есть статус 403 делаю  редирект на страницу авторизации
+					if (res.data.status) {
+						if (res.data.status.http_code === 403) {
+							$injector.get('utorService').LogIn();
+						}
+					}						
+					
+					return res;
+				},
                 'responseError': function(res) {
 					//status: {http_code: 403}, contents: "Token invalid - Invalid token: Stateless token expired"}
 					//contents: "Token invalid - Invalid token: Stateless token expired"

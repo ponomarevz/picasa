@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('App').
-		controller('addAlbumCtrl', function (userAlbumsService, $stateParams, 
+		controller('addAlbumCtrl', function (userAlbumsService, $stateParams, $state,
 											$localStorage, FileUploader, $scope) {
 			
 			var vm = this;
@@ -69,7 +69,10 @@ angular.module('App').
 				if(albumform.$valid){
 					userAlbumsService.addAlbum(autorId, al).then(function(res){
 						vm.albumId = res.id_al;
-						
+						//alert(JSON.stringify(res.data));
+						$state.go("albums");
+						//----------------емитируем собітие вверх
+						$scope.$emit('albums-update');
 					});
 					
 				}
