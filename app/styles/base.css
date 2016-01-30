@@ -207,7 +207,11 @@
 .hide1 {
 	
 	background-color: pink!important;
-	opacity: 0.5 !important;
+	opacity: 0 !important;
+	height:0!important;
+	padding:0!important;
+	margin:0!important;
+	overflow:hidden!important;
 	transition: all 0.7s;
 	
 }

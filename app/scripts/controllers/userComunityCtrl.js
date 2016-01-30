@@ -16,5 +16,10 @@ angular.module('App').
 						});
 			});
 			
+			$scope.$on('$routeChangeSuccess', function () {
+				alert();
+				window.scrollTo(0, 0);
+			});
+			
 		
 		});
