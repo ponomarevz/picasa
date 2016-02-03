@@ -16,6 +16,8 @@
 	-webkit-animation-fill-mode: both;
 	-webkit-animation-name: fadeIn;
 }
+
+
   
  /*-------------- основной ----------- */
 .blog-footer {
@@ -194,6 +196,9 @@
 	font-size: 11px;
 	border-bottom: solid 2px #52b6ec;
 }
+
+
+
 /*--------------оформление карточки фотки----------- */
 .photo img {
 	display:block;
@@ -204,14 +209,8 @@
 	font-size: 16px;
 }
 
-.hide1 {
-	
-	background-color: pink!important;
-	transition: all 0.7s;
-	
-}
 
-/*------------------------оформление меню для редактирования-------------------------- */
+/*------------------------оформление меню для для добавления альбома-------------------------- */
 
 .panel {
 	border: 0;

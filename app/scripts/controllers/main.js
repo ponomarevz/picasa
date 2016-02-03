@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('App').
-		controller('main', function ($localStorage, autorService) {
+		controller('main', function ($localStorage, autorService, $scope) {
 			
 			var vm = this;
 									
@@ -20,6 +20,22 @@ angular.module('App').
 			vm.logout = function() {
 				autorService.LogOut();
 			};
+			
+					
+			//------------------------------индикация загрузки странички
+			vm.showSnip = false;
+			
+			$scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+				if (toState.resolve) {
+					vm.showSnip = true;
+				}
+			});
+			
+			$scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+				if (toState.resolve) {
+					vm.showSnip = false;
+				}
+			});
 			
 		});
 

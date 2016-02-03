@@ -149,7 +149,7 @@
 		
 		var responseInterceptor = {
 			response: function(response) {
-						
+					
 				if (response.data.status) {
 						if (response.data.status.http_code === 403) {
 							$injector.get('autorService').LogIn();
