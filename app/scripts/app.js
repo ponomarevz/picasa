@@ -122,8 +122,12 @@
 			});
 			
 	})
-	.config(function($urlRouterProvider, $httpProvider){
-		 
+	.config(function($urlRouterProvider, $httpProvider, $myProvider){
+		//------------test-----------
+		$myProvider.getMet('providerConf');
+		$myProvider.incrMet(100);
+		//------------test-----------
+		
 		$urlRouterProvider.when('', '/comunity').
 			rule(function ($injector, $location, autorService) {
 				//------------ловим ответ от google---------------
@@ -152,10 +156,13 @@
 		$httpProvider.interceptors.push('myIntercept');
 		
 	});
-	angular.module('App').factory('myIntercept', function($q, $injector) {
+	angular.module('App').factory('myIntercept', function($q, $injector, $my) {
 		
 		return {
 			response: function(response) {
+				$my.getMet('Service');
+				
+				//-----------получаю $rootScope ---- и делаю событи наверх
 				var $rootScope = $injector.get('$rootScope');
 				$rootScope.$broadcast('ajaxStop');
 				

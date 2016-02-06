@@ -293,7 +293,32 @@
 
 
 	//--------------установливаем токен для передачи в сервис-------------------
-
+	angular
+		.module('App')
+			.provider('$my', function(){
+				var met = 30;
+				console.log(met);
+				return {
+					//-----------провайдер---------
+					getMet: function(when) {
+						console.log('1 ' + when + ' ' + met);
+					},
+					incrMet: function(inc) {
+					  met = met + inc;
+					},
+					
+					$get: function() {
+						return {
+							//---------сервис-----------
+							met:met,
+							getMet: function(when) {
+								console.log('2 ' + when + ' ' + met);
+							}
+							
+						};
+					}
+				}
+			});
 	
 })(); //------локализируем обявления функций сервисов
 
