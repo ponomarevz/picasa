@@ -24,7 +24,14 @@ angular.module('App').
 					
 			//------------------------------индикация загрузки странички
 			vm.showSnip = false;
-			
+			$scope.$on('ajaxStart', function() {
+				
+				vm.showSnip = true;
+			});
+			$scope.$on('ajaxStop', function() {
+				
+				vm.showSnip = false;
+			});
 			$scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
 				if (toState.resolve) {
 					vm.showSnip = true;

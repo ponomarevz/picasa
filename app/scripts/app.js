@@ -46,21 +46,27 @@
 					},
 				},
 				resolve: {
-					userAlbums: function(userAlbumsService, $stateParams) {
+					userAlbums: function(userAlbumsService, $stateParams, $q) {
 						
 						var autorId = $stateParams.autorId;
 												
 						userAlbumsService.setStart(1);	//--------при переходе начинаем с первой странички
-						return userAlbumsService.getAlbums(autorId).then(function(res){
-							return res;
-						});
+						return userAlbumsService.getAlbums(autorId).then(
+							function(res){
+								return res;
+							},
+							function(err){
+								console.log(err); // нужно делать редирект ресолв все равно срабатывает
+								$q.reject(err);
+							}
+						);
 					}
 				}
 			})
 			.state('albums.add', {
 				url:'/add',
 				views: {
-					//----------------вложенній view add в состоянии albums 
+					//----------------вложенній ui-view='panel' для вложеного состояния add в состоянии albums 
 					'panel@albums' : {
 						templateUrl:'views/addalbum.html',
 						controller:'addAlbumCtrl',
@@ -119,7 +125,7 @@
 	.config(function($urlRouterProvider, $httpProvider){
 		 
 		$urlRouterProvider.when('', '/comunity').
-			rule(function ($injector, $location) {
+			rule(function ($injector, $location, autorService) {
 				//------------ловим ответ от google---------------
 				var path = $location.path().substring(1);
 				var params = [];
@@ -137,6 +143,7 @@
 						http тоже неможет біть подключен возможні циклические ссілки но их можна инжектирловать (создать новій екземпляр)
 						-------------------------------------------------------------------------------------------------------------------------*/
 						return $injector.get('autorService').validation(tokenInfo);
+						
 					}
 					
 			});
@@ -147,18 +154,48 @@
 	});
 	angular.module('App').factory('myIntercept', function($q, $injector) {
 		
-		var responseInterceptor = {
+		return {
 			response: function(response) {
-					
+				var $rootScope = $injector.get('$rootScope');
+				$rootScope.$broadcast('ajaxStop');
+				
+				if (response.data.contents) {
+					console.log(response.data.contents);
+				}					
 				if (response.data.status) {
-						if (response.data.status.http_code === 403) {
-							$injector.get('autorService').LogIn();
-						}
-					}		
+					if (response.data.status.http_code === 403) {
+						$injector.get('autorService').LogIn();
+					}
+				}		
 			
-                    return response; //асинхронная операция вернула ошибку
-          }
+                return response; //асинхронная операция вернула ошибку
+			},
+			request: function(request) {
+				var $rootScope = $injector.get('$rootScope');
+				$rootScope.$broadcast('ajaxStart');
+				return request;
+			
+			}
 		};
- 		return responseInterceptor;
+ 		 
 	});
+	/*
+	angular.module('App').service('myIntercept', function($q, $injector) {
+		
+		
+			this.response = function(response) {
+				if (response.data.contents) {
+					console.log("Женя  " + response.data.contents);
+				}					
+				if (response.data.status) {
+					if (response.data.status.http_code === 403) {
+						$injector.get('autorService').LogIn();
+					}
+				}		
+			
+                return response; //асинхронная операция вернула ошибку
+          }
+		
+ 		 
+	}); тоже самое только через сервис */
 	

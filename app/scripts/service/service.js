@@ -74,7 +74,7 @@
 	//---------------------------------------------------------------------------------------------------------------------------------------
 	//------------сервис для извлечения товаров------------
 				
-	function albumService ($http, $httpParamSerializerJQLike, $localStorage) {
+	function albumService ($http, $httpParamSerializerJQLike, $localStorage, $q) {
 		
 		var max_result = 16;
 		var start = 1;
@@ -85,13 +85,24 @@
 			if ($localStorage.tokenQuery) {
 				q = $localStorage.tokenQuery;
 			}
+			
 			var resurs = server + 'url' + $httpParamSerializerJQLike(server_api + 'user/' + autorId +'/albumid/' + albumId + '?alt=json' + '&start-index=' + start + '&max-results=' + max_result + '&kind=photo' + q);
 			
-				return $http({method: 'get', url: resurs}).then(function(res) {
-						start = start + max_result;
+				return $http({method: 'get', url: resurs})
+					.then(
+						//---------если запрос успешный обрабатываем и возвращаем обещание
+						function(res) {
+							start = start + max_result;
 						
-						return res.data.contents.feed;
-					});
+							return res.data.contents.feed;
+						},
+						/* -----------если ошибка обрабатываем и делаем режект для того 
+						чтобы не попасть в блок успеха последующей обработки------ */
+						function(err) {
+							console.log(err);
+							return $q.reject(new Error("Re Thrown"));
+						}
+					);
 		
 		};
 		
@@ -111,7 +122,7 @@
 
 	//------------сервис для извлечения списка альбомов пользователя------------
 				
-	function userAlbumsService ($http, $httpParamSerializerJQLike, $localStorage) {
+	function userAlbumsService ($http, $httpParamSerializerJQLike, $localStorage, $q) {
 		
 		var max_result = 20;
 		var start = 1;
@@ -139,14 +150,30 @@
 			if ($localStorage.tokenQuery) {
 				q = $localStorage.tokenQuery;
 			}
-			
+			var er = '';
 			var resurs = server + 'url' + $httpParamSerializerJQLike(server_api + 'user/' + autorId + '?alt=json' + '&start-index=' + start + '&max-results=' + max_result + q);
 							
-				 return $http({method: 'get', url: resurs}).then(function(res) {
-						
-						start = start + max_result;
-						return res.data.contents.feed;
-					});
+				 return $http({method: 'get', url: resurs})
+					.then(
+						//---------если успех----------
+						function(res) {
+							
+							start = start + max_result;
+							if (res.data.contents instanceof Object) {
+								return res.data.contents.feed;
+							} else {
+								er = new Error('My erorr -- ' + res.data.contents);
+								return $q.reject(er); //-------------попадаем в блок ошибки 
+							}
+						},
+						/* -----------если ошибка обрабатываем и делаем режект для того 
+						чтобы не попасть в блок успеха последующей обработки------ */
+						function(err) {
+							console.log(err);
+							er = new Error('My error -- (http error)');
+							return $q.reject(er);
+						}
+					);
 		};
 		
 		//------------добавить альбом-----
