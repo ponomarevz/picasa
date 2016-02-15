@@ -171,6 +171,7 @@
 				}					
 				if (response.data.status) {
 					if (response.data.status.http_code === 403) {
+						console.log("das");
 						$injector.get('autorService').LogIn();
 					}
 				}		

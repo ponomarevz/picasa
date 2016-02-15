@@ -58,8 +58,28 @@
 				2px -2px 5px white;
 }
 
+/*-------------делаем адаптивны заголовок --------*/
+h3 {
+	font-size: 2.5em;
+}
 
+@media screen and (max-width: 50em) {
+	h3 {
+		font-size:2em;
+	}
+}
 
+@media screen and (max-width: 40em) {
+	h3 {
+		font-size:1.5em;
+	}
+}
+
+@media screen and (max-width: 30em) {
+	h3 {
+		font-size:1.2em;
+	}
+}
 /*--------------оформление грида фоток----------- */
 
 .album .thumbnail {
@@ -118,11 +138,8 @@
 }
 
 /*--------------оформление грида альбомов----------- */
-.albums .vcenter {
-	display: inline-block;
-    vertical-align: middle;
-    float: none;
-	padding: 0 4px!important;
+.aa:nth-first-child {
+	height:0px!important;
 }
 
 .albums .caption {
@@ -131,16 +148,15 @@
 }
 
 .albums img {
+	
 	border-radius:4px;
 	padding-bottom:4px;
-	max-height:70px;
-	border-radius:10px;
+	min-height:50px;
+	min-width: 50px;
+	width:40%;
+	
 }
 
-.vertical-align {
-    display: flex;
-    align-items: center;
-}
 
 .albums.row {
 	position: relative;
